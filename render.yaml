@@ -1,0 +1,19 @@
+# Render Blueprint – one-click API service
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: seaside-pulse-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PULSE_SESSION_SECRET
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: DATA_DIR
+        value: /opt/render/project/src/server/data

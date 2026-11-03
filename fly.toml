@@ -1,0 +1,35 @@
+# fly.io app config – run: fly launch (or fly apps create) then fly deploy
+# Persistent volume recommended so JSON DB survives restarts:
+#   fly volumes create pulse_data --size 1 --region lhr
+#   then set mount below
+
+app = "seaside-pulse-api"
+primary_region = "lhr"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "3001"
+  DATA_DIR = "/data"
+
+[http_service]
+  internal_port = 3001
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+  [[http_service.checks]]
+    interval = "15s"
+    timeout = "5s"
+    grace_period = "20s"
+    method = "GET"
+    path = "/api/health"
+
+# Uncomment after creating the volume:
+# [mounts]
+#   source = "pulse_data"
+#   destination = "/data"

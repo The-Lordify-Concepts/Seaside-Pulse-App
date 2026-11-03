@@ -1,0 +1,6 @@
+{
+  "name": "PULSE - Parents Leaderboard & Communication",
+  "description": "Educational platform connecting schools and parents through positive habit recognition, weighted Impact Scores, fair multi-child balancing, and multi-channel communication.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

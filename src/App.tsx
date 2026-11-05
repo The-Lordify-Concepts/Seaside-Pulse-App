@@ -71,7 +71,7 @@ const AuthenticatedApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-blue-50/20 to-slate-50 flex flex-col font-sans">
       {/* Top Bar with user session profile and role navigation */}
       <Navbar
         currentTab={currentTab}

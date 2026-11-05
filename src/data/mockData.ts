@@ -415,6 +415,14 @@ export const INITIAL_USERS: UserAccount[] = [
     avatarInitials: 'KS'
   },
   {
+    id: 'user-admin-ifeanyi',
+    name: 'Mr. Ifeanyi Chukwuedo',
+    email: 'ifeanyi.chukwuedo@theseasideschool.com',
+    role: 'admin',
+    linkedEntities: {},
+    avatarInitials: 'IC'
+  },
+  {
     id: 'user-teacher-okafor',
     name: 'Ms. Amina Okafor',
     email: 'amina.okafor@seasideschools.edu',

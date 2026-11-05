@@ -177,7 +177,21 @@ const users = [
     email: 'katherine.shaw@seasideschools.edu',
     role: 'admin',
     linkedEntities: {},
-    avatarInitials: 'KS'
+    avatarInitials: 'KS',
+    // Demo hash for local testing only — production should disable demo accounts
+    passwordHash:
+      'scrypt:a2108a2ad1aaa1f123ad6d830e36d574:b82094a55083bc7ba68ec54fac36c241a669cd84ea8df4ab97eb7960c9cc7090bd0e62e77f49616b06b328c4776614e3cf27c93c2d75d50d6c1a5310c18af7ed'
+  },
+  {
+    id: 'user-admin-ifeanyi',
+    name: 'Mr. Ifeanyi Chukwuedo',
+    email: 'ifeanyi.chukwuedo@theseasideschool.com',
+    role: 'admin',
+    linkedEntities: {},
+    avatarInitials: 'IC',
+    // Temporary password: SeasideAdmin2026!  — change after first login
+    passwordHash:
+      'scrypt:a2108a2ad1aaa1f123ad6d830e36d574:b82094a55083bc7ba68ec54fac36c241a669cd84ea8df4ab97eb7960c9cc7090bd0e62e77f49616b06b328c4776614e3cf27c93c2d75d50d6c1a5310c18af7ed'
   },
   {
     id: 'user-teacher-okafor',
@@ -185,7 +199,9 @@ const users = [
     email: 'amina.okafor@seasideschools.edu',
     role: 'teacher',
     linkedEntities: { teacherId: 'teach-okafor', assignedClasses: ['2B', '2P'] },
-    avatarInitials: 'AO'
+    avatarInitials: 'AO',
+    passwordHash:
+      'scrypt:a2108a2ad1aaa1f123ad6d830e36d574:b82094a55083bc7ba68ec54fac36c241a669cd84ea8df4ab97eb7960c9cc7090bd0e62e77f49616b06b328c4776614e3cf27c93c2d75d50d6c1a5310c18af7ed'
   }
 ];
 

@@ -62,7 +62,8 @@ export function requireAuth(req: AuthedRequest, res: Response, next: NextFunctio
     return;
   }
 
-  req.user = user as AuthUser;
+  const { passwordHash: _ph, ...safeUser } = user as Record<string, unknown>;
+  req.user = safeUser as AuthUser;
   req.token = token;
   next();
 }

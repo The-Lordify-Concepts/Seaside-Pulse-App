@@ -20,6 +20,7 @@ import {
   Lock,
   ShieldCheck
 } from 'lucide-react';
+import { EmptyStateCard } from './ui/Visuals';
 import { canSendMessage, canSendSchoolWideMessage } from '../utils/permissions';
 
 export const CommunicationCenter: React.FC = () => {
@@ -606,8 +607,12 @@ export const CommunicationCenter: React.FC = () => {
 
         <div className="divide-y divide-slate-100 border-t border-slate-100">
           {displayedMessages.length === 0 ? (
-            <div className="py-12 text-center text-sm text-slate-500">
-              No messages found matching this filter.
+            <div className="py-8 px-4">
+              <EmptyStateCard
+                variant="messages"
+                title="No messages yet"
+                description="When the school sends announcements, praise notes, or action items, they will appear here. Try clearing filters if you expected something."
+              />
             </div>
           ) : (
             displayedMessages.map((msg) => (

@@ -24,6 +24,7 @@ import {
   Compass,
   Check
 } from 'lucide-react';
+import { RankMedal, BadgeWall, ConfettiDots, AchievementBadge } from './ui/Visuals';
 
 interface StudentDashboardProps {
   onNavigateToPoints: () => void;
@@ -126,10 +127,12 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* 1. Student Hero Welcome Banner */}
-      <div className="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-2xl p-5 sm:p-7 md:p-8 shadow-sm border border-indigo-700/50 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-[#0040A0] via-[#003080] to-slate-900 text-white rounded-2xl p-5 sm:p-7 md:p-8 shadow-lg border border-blue-900 relative overflow-hidden">
         {/* Subtle decorative background shimmer */}
-        <div className="absolute -right-16 -top-16 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute right-32 -bottom-20 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -right-16 -top-16 w-64 h-64 bg-blue-400/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-32 -bottom-20 w-64 h-64 bg-amber-400/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0040A0] to-[#D02010]" />
+        <ConfettiDots />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-start gap-4 sm:gap-5">
@@ -139,14 +142,14 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
             </div>
 
             <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/15 text-indigo-100 border border-white/15">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/15 text-blue-50 border border-white/15">
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                 <span>My Learner Progress · {className} ({yearGroup})</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
                 Welcome back, {studentName}!
               </h1>
-              <p className="text-xs sm:text-sm text-indigo-200 max-w-xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-blue-100 max-w-xl leading-relaxed">
                 Every positive habit you build at school—from early arrival to helping peers—earns points towards your family's Impact Score!
               </p>
             </div>
@@ -173,42 +176,57 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
         {/* Hero KPI Stat Strip */}
         <div className="mt-6 pt-6 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           <div className="p-3 sm:p-3.5 bg-white/10 rounded-xl backdrop-blur-xs border border-white/10">
-            <div className="text-[11px] font-medium text-indigo-200">Personal Points This Term</div>
+            <div className="text-[11px] font-medium text-blue-100">Personal Points This Term</div>
             <div className="text-2xl sm:text-3xl font-bold font-mono tabular-nums text-white mt-0.5">
-              {studentTotalPoints} <span className="text-xs font-sans font-normal text-indigo-200">pts</span>
+              {studentTotalPoints} <span className="text-xs font-sans font-normal text-blue-100">pts</span>
             </div>
             <div className="text-[11px] text-emerald-300 font-medium">+{weeklyPoints} pts this week</div>
           </div>
 
           <div className="p-3 sm:p-3.5 bg-white/10 rounded-xl backdrop-blur-xs border border-white/10">
-            <div className="text-[11px] font-medium text-indigo-200">Family Impact Contribution</div>
+            <div className="text-[11px] font-medium text-blue-100">Family Impact Contribution</div>
             <div className="text-2xl sm:text-3xl font-bold font-mono tabular-nums text-amber-300 mt-0.5">
-              {contributionPercentage}% <span className="text-xs font-sans font-normal text-indigo-200">of total</span>
+              {contributionPercentage}% <span className="text-xs font-sans font-normal text-blue-100">of total</span>
             </div>
-            <div className="text-[11px] text-indigo-200 truncate">
+            <div className="text-[11px] text-blue-100 truncate">
               {studentTotalPoints} of {familyTotalScore} family pts
             </div>
           </div>
 
           <div className="p-3 sm:p-3.5 bg-white/10 rounded-xl backdrop-blur-xs border border-white/10">
-            <div className="text-[11px] font-medium text-indigo-200">Active Punctuality Streak</div>
+            <div className="text-[11px] font-medium text-blue-100">Active Punctuality Streak</div>
             <div className="text-2xl sm:text-3xl font-bold font-mono tabular-nums text-emerald-300 mt-0.5 flex items-center gap-1">
               <span>{punctualityStreakDays}</span>
-              <span className="text-base font-sans font-normal text-indigo-200">days</span>
+              <span className="text-base font-sans font-normal text-blue-100">days</span>
               <Flame className="w-5 h-5 text-amber-400 fill-amber-400 inline" />
             </div>
             <div className="text-[11px] text-emerald-200">On time before 08:35</div>
           </div>
 
           <div className="p-3 sm:p-3.5 bg-white/10 rounded-xl backdrop-blur-xs border border-white/10">
-            <div className="text-[11px] font-medium text-indigo-200">Class 5A Standing</div>
+            <div className="text-[11px] font-medium text-blue-100">Class 5A Standing</div>
             <div className="text-2xl sm:text-3xl font-bold font-mono tabular-nums text-white mt-0.5">
-              #{studentRank} <span className="text-xs font-sans font-normal text-indigo-200">in Class 5A</span>
+              #{studentRank} <span className="text-xs font-sans font-normal text-blue-100">in Class 5A</span>
             </div>
             <div className="text-[11px] text-emerald-300 font-medium">Top 3 Podium Achiever!</div>
           </div>
         </div>
       </div>
+
+      {/* Badge Wall */}
+      <BadgeWall
+        title="My Achievement Badges"
+        badges={[
+          { kind: 'punctuality', earned: punctualityStreakDays >= 5 },
+          { kind: 'streak', earned: punctualityStreakDays >= 10 },
+          { kind: 'homework', earned: assignmentStreakWeeks >= 2 },
+          { kind: 'kindness', earned: kindnessBadgesCount >= 1 },
+          { kind: 'century', earned: studentTotalPoints >= 100 },
+          { kind: 'champion', earned: studentRank <= 3 },
+          { kind: 'team', earned: true },
+          { kind: 'improved', earned: weeklyPoints > 0 }
+        ]}
+      />
 
       {/* 2. Personal Goals & Active Streaks Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -256,7 +274,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
             <span className="flex items-center gap-1 text-emerald-600 font-semibold">
               <Check className="w-3.5 h-3.5" /> 50 Club Achieved
             </span>
-            <span className="font-medium text-indigo-600">Next: Gold Star</span>
+            <span className="font-medium text-[#0040A0]">Next: Gold Star</span>
           </div>
         </div>
 
@@ -309,7 +327,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
 
           <div className="pt-2 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between">
             <span>Keep your streak going tomorrow!</span>
-            <span className="text-indigo-600 font-semibold">+5 pts / day</span>
+            <span className="text-[#0040A0] font-semibold">+5 pts / day</span>
           </div>
         </div>
 
@@ -318,7 +336,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="p-2 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200">
+                <span className="p-2 rounded-lg bg-blue-50 text-indigo-700 border border-blue-200">
                   <Users className="w-4 h-4" />
                 </span>
                 <div>
@@ -326,7 +344,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
                   <div className="text-[11px] text-slate-500">Working Together as a Class</div>
                 </div>
               </div>
-              <span className="font-mono text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+              <span className="font-mono text-xs font-bold text-indigo-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                 {classGoalPct}%
               </span>
             </div>
@@ -363,7 +381,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
       <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 md:p-8 shadow-xs space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-600">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0040A0]">
               <Trophy className="w-4 h-4 text-amber-500" />
               <span>Friendly Class Recognition</span>
             </div>
@@ -388,20 +406,12 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
               key={item.studentId}
               className={`p-4 rounded-xl border transition-all ${
                 item.isCurrentUser
-                  ? 'bg-indigo-50/70 border-indigo-300 ring-2 ring-indigo-200 shadow-xs'
+                  ? 'bg-gradient-to-br from-amber-50 to-blue-50 border-amber-300 ring-2 ring-amber-200 shadow-md'
                   : 'bg-slate-50/70 border-slate-200'
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs ${
-                  item.rank === 1
-                    ? 'bg-amber-400 text-slate-900 shadow-xs'
-                    : item.rank === 2
-                    ? 'bg-slate-300 text-slate-800'
-                    : 'bg-amber-600/80 text-white'
-                }`}>
-                  {item.rank === 1 ? '🥇' : item.rank === 2 ? '🥈' : '🥉'}
-                </span>
+                <RankMedal rank={item.rank as 1 | 2 | 3} size="sm" />
                 <span className="font-mono text-sm font-bold text-slate-900 tabular-nums">
                   {item.points} <span className="text-[11px] font-normal text-slate-500">pts</span>
                 </span>
@@ -415,7 +425,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
               </div>
 
               {item.isCurrentUser && (
-                <div className="mt-2.5 pt-2 border-t border-indigo-200/60 text-[11px] font-semibold text-indigo-700 flex items-center gap-1">
+                <div className="mt-2.5 pt-2 border-t border-blue-200/60 text-[11px] font-semibold text-indigo-700 flex items-center gap-1">
                   <Star className="w-3.5 h-3.5 fill-indigo-500 text-indigo-500" />
                   <span>Outstanding effort this term!</span>
                 </div>
@@ -427,12 +437,12 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
         {/* Encouraging Privacy Note */}
         <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-indigo-600 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-[#0040A0] shrink-0" />
             <span>PULSE Friendly Privacy: Full family rankings are kept private to parents. Students celebrate habits in class together!</span>
           </div>
           <button
             onClick={onNavigateToProfile}
-            className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 shrink-0"
+            className="text-xs font-semibold text-[#0040A0] hover:text-indigo-800 shrink-0"
           >
             My Badges →
           </button>
@@ -457,7 +467,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
 
           <button
             onClick={onNavigateToPoints}
-            className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 self-start sm:self-auto"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-[#0040A0] hover:text-indigo-800 self-start sm:self-auto"
           >
             <span>View Full Ledger ({studentActivities.length})</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -477,7 +487,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
               >
                 <div className="space-y-1">
                   <div className="flex flex-wrap items-center gap-2 text-[11px] sm:text-xs text-slate-500">
-                    <span className="font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+                    <span className="font-semibold text-indigo-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                       {act.categoryName}
                     </span>
                     <span aria-hidden="true">·</span>
@@ -505,8 +515,8 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
       <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 md:p-8 shadow-xs space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-600">
-              <MessageSquare className="w-4 h-4 text-indigo-600" />
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0040A0]">
+              <MessageSquare className="w-4 h-4 text-[#0040A0]" />
               <span>School Communications</span>
             </div>
             <h2 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">
@@ -519,7 +529,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
 
           <button
             onClick={onNavigateToMessages}
-            className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 self-start sm:self-auto"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-[#0040A0] hover:text-indigo-800 self-start sm:self-auto"
           >
             <span>All Messages</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -534,7 +544,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
             >
               <div>
                 <div className="flex items-center justify-between text-[11px] text-slate-500 mb-1">
-                  <span className="font-bold text-indigo-900 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+                  <span className="font-bold text-indigo-900 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                     {msg.sender}
                   </span>
                   <span>{new Date(msg.sentAt).toLocaleDateString()}</span>
@@ -547,7 +557,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
                 <span className="capitalize">{msg.priority} Notice</span>
                 <button
                   onClick={onNavigateToMessages}
-                  className="text-xs font-semibold text-indigo-600 hover:underline"
+                  className="text-xs font-semibold text-[#0040A0] hover:underline"
                 >
                   View Details →
                 </button>

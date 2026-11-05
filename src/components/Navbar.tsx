@@ -13,8 +13,11 @@ import {
   LogOut, 
   User, 
   ChevronDown,
-  Layers
+  Layers,
+  KeyRound
 } from 'lucide-react';
+import seasideLogo from '../assets/brand/seaside-logo.png';
+import { ChangePasswordModal } from './ChangePasswordModal';
 
 interface NavbarProps {
   currentTab: string;
@@ -28,6 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
   
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown on outside click
@@ -187,12 +191,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
 
             <button 
               onClick={() => handleNavSelect(role === 'student' ? 'student-portal' : 'leaderboard')}
-              className="flex items-center gap-2 text-left text-lg sm:text-xl font-bold tracking-tight text-slate-900 whitespace-nowrap shrink-0 hover:opacity-90 transition-opacity"
+              className="flex items-center gap-2.5 text-left text-lg sm:text-xl font-bold tracking-tight text-slate-900 whitespace-nowrap shrink-0 hover:opacity-90 transition-opacity"
             >
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs sm:text-sm tracking-wider shadow-xs">
+              <img src={seasideLogo} alt="The Seaside Schools" className="h-8 sm:h-9 w-auto object-contain hidden sm:block" />
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0040A0] to-[#003080] text-white flex items-center justify-center font-bold text-sm tracking-wider shadow-md ring-2 ring-blue-100">
                 P
               </span>
-              <span className="font-semibold text-slate-900 tracking-tight">PULSE</span>
+              <span className="font-bold text-[#0040A0] tracking-tight">PULSE</span>
             </button>
           </div>
 
@@ -206,7 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
                   onClick={() => setCurrentTab(item.id)}
                   className={`relative py-1 text-xs xl:text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
                     isActive
-                      ? 'text-indigo-600 font-semibold'
+                      ? 'text-[#0040A0] font-semibold'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -217,7 +222,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
                     </span>
                   )}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 rounded-full" />
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0040A0] rounded-full" />
                   )}
                 </button>
               );
@@ -230,7 +235,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
             {(role === 'teacher' || role === 'admin') && (
               <button
                 onClick={onOpenRecordModal}
-                className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors shadow-xs whitespace-nowrap shrink-0"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 text-xs font-semibold text-white bg-[#0040A0] rounded-lg hover:bg-[#003080] transition-colors shadow-xs whitespace-nowrap shrink-0"
               >
                 <PlusCircle className="w-4 h-4" />
                 <span className="hidden xs:inline sm:inline">Award Points</span>
@@ -261,7 +266,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
                 aria-expanded={userDropdownOpen}
                 aria-label="User account menu"
               >
-                <div className="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs">
+                <div className="w-7 h-7 rounded-lg bg-[#0040A0]/10 text-[#0040A0] flex items-center justify-center font-bold text-xs ring-1 ring-[#0040A0]/20">
                   {currentUser?.name.charAt(0) || 'U'}
                 </div>
                 <div className="hidden sm:block text-xs leading-tight">
@@ -344,6 +349,21 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
                       </div>
                     </div>
                   )}
+
+                  {/* Account security */}
+                  <div className="p-1.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setUserDropdownOpen(false);
+                        setChangePasswordOpen(true);
+                      }}
+                      className="w-full flex items-center gap-2 px-3 py-2 text-slate-700 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                    >
+                      <KeyRound className="w-3.5 h-3.5 text-[#0040A0]" />
+                      <span>Change password</span>
+                    </button>
+                  </div>
 
                   {/* Sign Out Action */}
                   <div className="p-1.5">
@@ -432,8 +452,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
               })}
             </div>
 
-            {/* Logout button */}
-            <div className="pt-3 border-t border-slate-100">
+            <div className="pt-3 border-t border-slate-100 space-y-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setChangePasswordOpen(true);
+                }}
+                className="flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-lg text-[#0040A0] bg-blue-50 hover:bg-blue-100 font-semibold text-xs transition-colors"
+              >
+                <KeyRound className="w-4 h-4" />
+                <span>Change password</span>
+              </button>
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -453,6 +483,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
           />
         </div>
       )}
+
+      <ChangePasswordModal
+        open={changePasswordOpen}
+        onClose={() => setChangePasswordOpen(false)}
+      />
     </header>
   );
 };

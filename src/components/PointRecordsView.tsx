@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { usePulse } from '../context/PulseContext';
 import { Search, Filter, ShieldCheck, Clock, CheckCircle2, AlertCircle, PlusCircle } from 'lucide-react';
+import { EmptyStateCard } from './ui/Visuals';
 import { PointActivity } from '../types/pulse';
 
 export const PointRecordsView: React.FC<{ onOpenRecordModal: () => void }> = ({ onOpenRecordModal }) => {
@@ -180,8 +181,12 @@ export const PointRecordsView: React.FC<{ onOpenRecordModal: () => void }> = ({ 
 
         <div className="divide-y divide-slate-100">
           {filteredActivities.length === 0 ? (
-            <div className="py-16 text-center text-sm text-slate-500">
-              No point records found matching the search criteria.
+            <div className="py-8 px-4">
+              <EmptyStateCard
+                variant="points"
+                title="No point records yet"
+                description="Positive habits awarded by teachers will show up here. Adjust your search or timeframe, or check back after the next class day."
+              />
             </div>
           ) : (
             filteredActivities.map((act) => {

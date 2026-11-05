@@ -173,5 +173,11 @@ export const api = {
     request<{ categoryRules: unknown[] }>('/api/pulse/rules', {
       method: 'PUT',
       body: JSON.stringify({ weights })
+    }),
+
+  changePassword: (currentPassword: string, newPassword: string) =>
+    request<{ success: boolean }>('/api/auth/change-password', {
+      method: 'POST',
+      body: JSON.stringify({ currentPassword, newPassword })
     })
 };

@@ -15,6 +15,7 @@ import {
   ArrowUpRight,
   ChevronDown
 } from 'lucide-react';
+import { RankMedal, AchievementBadge, BadgeWall } from './ui/Visuals';
 import { PointActivity } from '../types/pulse';
 
 export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> = ({ onNavigateToCommunications }) => {
@@ -79,11 +80,11 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* Family Hero Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6 md:p-8 shadow-xs">
+      <div className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50/40 to-red-50/20 rounded-2xl border border-slate-200 p-4 sm:p-6 md:p-8 shadow-sm">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6">
           <div className="flex flex-wrap items-center justify-between gap-3 flex-1">
             <div>
-              <div className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-indigo-600">
+              <div className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#0040A0]">
                 <span>Parent Impact Dashboard</span>
                 <span aria-hidden="true">·</span>
                 <span>{role === 'parent' ? 'Private Account' : role === 'student' ? 'Family Journal' : 'Staff Inspector'}</span>
@@ -157,7 +158,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
           <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden flex">
             <div 
               style={{ width: `${totalRaw > 0 ? (studentScore / totalRaw) * 100 : 80}%` }} 
-              className="bg-indigo-600 h-full"
+              className="bg-[#0040A0] h-full"
               title="Student Activity Component"
             />
             <div 
@@ -169,7 +170,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] sm:text-xs text-slate-500 mt-2 gap-1.5 sm:gap-2">
             <span className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-sm bg-indigo-600 shrink-0 inline-block" />
+              <span className="w-2.5 h-2.5 rounded-sm bg-[#0040A0] shrink-0 inline-block" />
               <span>Student Activities (Attendance, Homework, Projects, Character, Clubs)</span>
             </span>
             <span className="flex items-center gap-1.5">
@@ -179,6 +180,18 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
           </div>
         </div>
       </div>
+
+      <BadgeWall
+        title="Family Recognition Badges"
+        badges={[
+          { kind: 'parent', earned: true },
+          { kind: 'champion', earned: (currentUserRank?.rank || 99) <= 3 },
+          { kind: 'punctuality', earned: true },
+          { kind: 'participation', earned: true },
+          { kind: 'century', earned: (currentFamily.termlyScore || 0) >= 300 },
+          { kind: 'team', earned: true }
+        ]}
+      />
 
       {/* Children Overview Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -191,7 +204,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
               <div>
                 <div className="flex items-center justify-between mb-3 sm:mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-indigo-50 text-indigo-700 font-bold flex items-center justify-center text-sm border border-indigo-100 shrink-0">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#0040A0] to-[#003080] text-white font-bold flex items-center justify-center text-sm border border-blue-800 shadow-sm shrink-0">
                       {child.name.charAt(0)}
                     </div>
                     <div>
@@ -227,7 +240,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
 
               <div className="mt-4 sm:mt-5 pt-3 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between">
                 <span className="truncate">Fair weighting: normalized</span>
-                <span className="text-indigo-600 font-medium shrink-0">Punctual & Engaged</span>
+                <span className="text-[#0040A0] font-medium shrink-0">Punctual & Engaged</span>
               </div>
             </div>
           );
@@ -256,7 +269,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
               <div className="pt-1.5 flex flex-wrap items-center gap-2.5 sm:gap-3">
                 <button
                   onClick={() => acknowledgeMessage(pendingActionMessages[0].id)}
-                  className="px-3 sm:px-3.5 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded-lg hover:bg-indigo-700 transition-colors shadow-xs whitespace-nowrap"
+                  className="px-3 sm:px-3.5 py-1.5 bg-[#0040A0] text-white text-xs font-semibold rounded-lg hover:bg-indigo-700 transition-colors shadow-xs whitespace-nowrap"
                 >
                   Confirm & Acknowledge (+5 pts)
                 </button>
@@ -302,7 +315,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
                 </div>
                 <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
                   <div
-                    className={`h-full ${cat.type === 'student' ? 'bg-indigo-600' : 'bg-emerald-500'}`}
+                    className={`h-full ${cat.type === 'student' ? 'bg-[#0040A0]' : 'bg-emerald-500'}`}
                     style={{ width: `${Math.min(100, (score / 130) * 100)}%` }}
                   />
                 </div>
@@ -351,7 +364,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
                     {act.studentName && (
                       <>
                         <span aria-hidden="true">·</span>
-                        <span className="text-indigo-600 font-medium">{act.studentName}</span>
+                        <span className="text-[#0040A0] font-medium">{act.studentName}</span>
                       </>
                     )}
                     <span aria-hidden="true">·</span>
@@ -382,7 +395,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
                   {act.status === 'approved' && role === 'parent' && (
                     <button
                       onClick={() => setSelectedActivityForCorrection(act)}
-                      className="text-xs text-slate-500 hover:text-indigo-600 font-medium underline-offset-2 hover:underline whitespace-nowrap"
+                      className="text-xs text-slate-500 hover:text-[#0040A0] font-medium underline-offset-2 hover:underline whitespace-nowrap"
                     >
                       Request Correction
                     </button>
@@ -447,7 +460,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
                 </button>
                 <button
                   type="submit"
-                  className="px-4 sm:px-5 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors shadow-xs"
+                  className="px-4 sm:px-5 py-2 text-xs font-semibold text-white bg-[#0040A0] rounded-lg hover:bg-indigo-700 transition-colors shadow-xs"
                 >
                   Submit Request
                 </button>

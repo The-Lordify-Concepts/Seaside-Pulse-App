@@ -17,6 +17,7 @@ import {
   Sparkles,
   Filter
 } from 'lucide-react';
+import { PodiumCard, CategoryChip, RankMedal, SchoolRibbon, ConfettiDots, AchievementBadge, AnimatedConfetti } from './ui/Visuals';
 
 export const LeaderboardView: React.FC<{ onNavigateToParentPortal: () => void }> = ({ onNavigateToParentPortal }) => {
   const { currentUser } = useAuth();
@@ -82,28 +83,31 @@ export const LeaderboardView: React.FC<{ onNavigateToParentPortal: () => void }>
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* Header Banner & Context */}
-      <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6 md:p-8 shadow-xs">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 sm:gap-6">
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#0040A0] via-[#003080] to-slate-900 text-white rounded-2xl border border-blue-900 p-4 sm:p-6 md:p-8 shadow-lg">
+        <SchoolRibbon position="top" />
+        <ConfettiDots />
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 sm:gap-6">
           <div>
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-500 uppercase tracking-wider font-semibold mb-1.5">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-blue-200 uppercase tracking-wider font-semibold mb-1.5">
+              <Trophy className="w-3.5 h-3.5 text-amber-300" />
               <span>School Community Recognition</span>
               <span aria-hidden="true">·</span>
-              <span>The Seaside Schools Programme</span>
+              <span>The Seaside Schools</span>
             </div>
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-white">
               Parents Impact Leaderboard
             </h1>
-            <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-              Recognising parent dedication when children demonstrate positive habits at school and families take active part in school life.
+            <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-blue-100 max-w-2xl leading-relaxed">
+              Celebrating families who build positive habits at school — medals, badges, and recognition for every milestone.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
             <button
               onClick={() => setShowFairFormulaModal(true)}
-              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors whitespace-nowrap"
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold text-white bg-white/15 border border-white/25 rounded-lg hover:bg-white/25 transition-colors whitespace-nowrap"
             >
-              <HelpCircle className="w-4 h-4 text-indigo-600" />
+              <HelpCircle className="w-4 h-4 text-amber-300" />
               <span>Fair Formula</span>
             </button>
             {isStaff && (
@@ -111,8 +115,8 @@ export const LeaderboardView: React.FC<{ onNavigateToParentPortal: () => void }>
                 onClick={() => setStaffShowAllRanks(!staffShowAllRanks)}
                 className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg border transition-colors whitespace-nowrap ${
                   staffShowAllRanks
-                    ? 'bg-amber-50 text-amber-800 border-amber-300'
-                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                    ? 'bg-amber-400 text-slate-900 border-amber-300'
+                    : 'bg-white/15 text-white border-white/25 hover:bg-white/25'
                 }`}
               >
                 <Eye className="w-4 h-4" />
@@ -123,16 +127,16 @@ export const LeaderboardView: React.FC<{ onNavigateToParentPortal: () => void }>
         </div>
 
         {/* Timeframe & Category Selectors */}
-        <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-100 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
-          <div className="flex items-center p-1 bg-slate-100 rounded-lg border border-slate-200 overflow-x-auto">
+        <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/15 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center p-1 bg-white/10 rounded-lg border border-white/20 overflow-x-auto">
             {(['weekly', 'monthly', 'termly'] as Timeframe[]).map((t) => (
               <button
                 key={t}
                 onClick={() => setTimeframe(t)}
                 className={`flex-1 sm:flex-initial px-3 sm:px-3.5 py-1.5 text-xs font-medium rounded-md capitalize transition-all whitespace-nowrap text-center ${
                   timeframe === t
-                    ? 'bg-white text-slate-900 font-semibold shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-white text-[#0040A0] font-semibold shadow-sm'
+                    : 'text-blue-100 hover:text-white'
                 }`}
               >
                 {t === 'weekly' ? 'This Week' : t === 'monthly' ? 'This Month' : 'Autumn Term 2026'}
@@ -140,27 +144,22 @@ export const LeaderboardView: React.FC<{ onNavigateToParentPortal: () => void }>
             ))}
           </div>
 
-          <div className="text-xs text-slate-500 flex flex-wrap items-center gap-1.5 sm:gap-2">
-            <span className="font-semibold text-slate-700">{currentCategoryInfo.label}:</span>
-            <span className="text-slate-600">{currentCategoryInfo.desc}</span>
+          <div className="text-xs text-blue-100 flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <span className="font-semibold text-white">{currentCategoryInfo.label}:</span>
+            <span className="text-blue-100/90">{currentCategoryInfo.desc}</span>
           </div>
         </div>
 
         {/* Category Tab Strip - smoothly scrollable on mobile */}
-        <div className="mt-4 flex items-center gap-1.5 overflow-x-auto pb-1.5 scrollbar-none -mx-2 px-2 sm:mx-0 sm:px-0">
+        <div className="mt-5 flex items-center gap-2 overflow-x-auto pb-1.5 scrollbar-none -mx-2 px-2 sm:mx-0 sm:px-0">
           {categoryLabels.map((cat) => (
-            <button
+            <CategoryChip
               key={cat.id}
+              active={category === cat.id}
+              icon={cat.icon}
+              label={cat.label}
               onClick={() => setCategory(cat.id)}
-              className={`flex items-center gap-2 px-3 py-2 text-xs font-medium rounded-lg whitespace-nowrap transition-colors border shrink-0 ${
-                category === cat.id
-                  ? 'bg-indigo-50 border-indigo-200 text-indigo-700 font-semibold'
-                  : 'bg-white border-slate-200 sm:border-transparent text-slate-600 hover:bg-slate-50'
-              }`}
-            >
-              {cat.icon}
-              <span>{cat.label}</span>
-            </button>
+            />
           ))}
         </div>
       </div>
@@ -239,41 +238,32 @@ export const LeaderboardView: React.FC<{ onNavigateToParentPortal: () => void }>
           </span>
         </div>
 
-        {/* Podium Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          {topThree.map((item, idx) => {
-            const isFirst = idx === 0;
-            const isSecond = idx === 1;
-
-            const podiumColors = isFirst
-              ? { border: 'border-amber-300', bg: 'bg-amber-50/50', badge: 'bg-amber-500 text-white', medal: '1st Place' }
-              : isSecond
-              ? { border: 'border-slate-300', bg: 'bg-slate-50/70', badge: 'bg-slate-600 text-white', medal: '2nd Place' }
-              : { border: 'border-amber-700/30', bg: 'bg-amber-900/5', badge: 'bg-amber-800 text-white', medal: '3rd Place' };
-
-            return (
-              <div
-                key={item.family.id}
-                className={`relative rounded-xl border ${podiumColors.border} ${podiumColors.bg} p-4 sm:p-6 shadow-xs transition-transform hover:-translate-y-0.5 duration-200 flex flex-col justify-between`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <span className={`px-2.5 py-1 rounded-md text-[11px] sm:text-xs font-bold uppercase tracking-wider ${podiumColors.badge}`}>
-                      {podiumColors.medal}
-                    </span>
-                    <span className="font-mono text-xl sm:text-2xl font-bold tabular-nums text-slate-900">
-                      {item.score} <span className="text-xs font-normal text-slate-500">pts</span>
-                    </span>
-                  </div>
-
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900">
-                    {item.family.displayTitle}
-                  </h3>
-                  <div className="text-xs text-slate-600 mt-1">
-                    {item.family.parentNames}
-                  </div>
-
-                  <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-200/60 space-y-1.5 sm:space-y-2 text-xs text-slate-600">
+        {/* Podium Grid — reorder visual so 2nd | 1st | 3rd on desktop */}
+        <div className="relative">
+          {topThree.length > 0 && <AnimatedConfetti active key={timeframe + '-' + category} />}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:items-end">
+          {(() => {
+            const order = topThree.length >= 3 ? [1, 0, 2] : topThree.map((_, i) => i);
+            return order.map((idx) => {
+              const item = topThree[idx];
+              if (!item) return null;
+              const rank = (idx + 1) as 1 | 2 | 3;
+              return (
+                <div key={item.family.id} className={rank === 1 ? 'md:order-2' : rank === 2 ? 'md:order-1' : 'md:order-3'}>
+                  <PodiumCard
+                    rank={rank}
+                    title={item.family.displayTitle}
+                    subtitle={item.family.parentNames}
+                    score={item.score}
+                    elevate={rank === 1}
+                    footerLeft={
+                      <>
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>School Exemplar</span>
+                      </>
+                    }
+                    footerRight={timeframe === 'weekly' ? 'Weekly Lead' : 'Term Impact'}
+                  >
                     <div className="flex items-start justify-between gap-2">
                       <span className="text-slate-500 shrink-0">Children:</span>
                       <span className="font-medium text-slate-800 text-right">
@@ -286,27 +276,26 @@ export const LeaderboardView: React.FC<{ onNavigateToParentPortal: () => void }>
                         {item.family.children.map((c) => c.className).join(', ')}
                       </span>
                     </div>
-                  </div>
+                    {rank === 1 && (
+                      <div className="pt-2 flex flex-wrap gap-2 justify-end">
+                        <AchievementBadge kind="champion" size="sm" showLabel={false} />
+                        <AchievementBadge kind="century" size="sm" showLabel={false} />
+                      </div>
+                    )}
+                  </PodiumCard>
                 </div>
-
-                <div className="mt-4 sm:mt-5 pt-3 border-t border-slate-200/50 flex items-center justify-between text-xs text-slate-500">
-                  <span className="flex items-center gap-1 text-emerald-700 font-medium">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>School Exemplar</span>
-                  </span>
-                  <span>{timeframe === 'weekly' ? 'Weekly Lead' : 'Term Impact'}</span>
-                </div>
-              </div>
-            );
-          })}
+              );
+            });
+          })()}
+        </div>
         </div>
       </div>
 
       {/* Category Winner Spotlight */}
       {category !== 'overall' && categoryWinner && (
-        <div className="bg-indigo-50/60 rounded-xl border border-indigo-200 p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="bg-gradient-to-r from-amber-50 via-white to-blue-50 rounded-2xl border-2 border-amber-200 p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
           <div className="flex items-start sm:items-center gap-3 sm:gap-4">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-white flex items-center justify-center shrink-0 mt-0.5 sm:mt-0 shadow-md shadow-amber-300/40">
               <Award className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>

@@ -14,6 +14,8 @@ import {
   HelpCircle,
   KeyRound
 } from 'lucide-react';
+import seasideLogo from '../assets/brand/seaside-logo.png';
+import { ConfettiDots, AchievementBadge } from './ui/Visuals';
 
 export const LoginPage: React.FC = () => {
   const { login, loginAsDemoUser, requestPasswordReset, users } = useAuth();
@@ -53,7 +55,7 @@ export const LoginPage: React.FC = () => {
       name: 'Elena & Marcus Bennett',
       email: 'elena.bennett@seasideschools.edu',
       desc: 'Linked to 2 students: Leo (Yr 5) & Sophie (Yr 2)',
-      icon: <UserCheck className="w-4 h-4 text-indigo-600" />,
+      icon: <UserCheck className="w-4 h-4 text-[#0040A0]" />,
       color: 'hover:border-indigo-300 hover:bg-indigo-50/40'
     },
     {
@@ -86,18 +88,33 @@ export const LoginPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-blue-50/40 to-red-50/30 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* School colour ribbons */}
+      <ConfettiDots />
+      <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#0040A0] via-[#0040A0] to-[#D02010]" />
+      <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-[#D02010] via-[#0040A0] to-[#0040A0]" />
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        {/* Brand emblem */}
-        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-600 text-white font-bold text-xl shadow-md mb-3">
-          P
+        {/* School logo */}
+        <div className="flex justify-center mb-4">
+          <img
+            src={seasideLogo}
+            alt="The Seaside Schools"
+            className="h-14 sm:h-16 w-auto object-contain drop-shadow-sm"
+          />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0040A0]">
           Sign in to PULSE
         </h1>
         <p className="mt-1 text-xs sm:text-sm text-slate-600">
-          The Seaside Schools Parents Leaderboard & School Communications
+          The Seaside Schools · Parents Leaderboard & Communications
         </p>
+        <div className="mt-4 flex flex-wrap justify-center gap-3">
+          <AchievementBadge kind="champion" size="sm" />
+          <AchievementBadge kind="punctuality" size="sm" />
+          <AchievementBadge kind="kindness" size="sm" />
+          <AchievementBadge kind="parent" size="sm" />
+        </div>
       </div>
 
       <div className="mt-6 sm:mt-8 sm:mx-auto sm:w-full sm:max-w-xl space-y-6">
@@ -122,8 +139,8 @@ export const LoginPage: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@seasideschools.edu or parent@email.com"
-                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+                  placeholder="ifeanyi.chukwuedo@theseasideschool.com"
+                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#0040A0] bg-white"
                 />
               </div>
             </div>
@@ -140,7 +157,7 @@ export const LoginPage: React.FC = () => {
                     setForgotEmail(email || '');
                     setShowForgotModal(true);
                   }}
-                  className="text-xs text-indigo-600 hover:text-indigo-800 font-medium"
+                  className="text-xs text-[#0040A0] hover:text-[#003080] font-medium"
                 >
                   Forgot password?
                 </button>
@@ -152,7 +169,7 @@ export const LoginPage: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#0040A0] bg-white"
                 />
               </div>
             </div>
@@ -160,7 +177,7 @@ export const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold transition-colors shadow-xs"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-[#0040A0] hover:bg-[#003080] text-white text-xs sm:text-sm font-semibold transition-colors shadow-md"
             >
               <span>{isSubmitting ? 'Verifying Credentials...' : 'Sign In'}</span>
               <ArrowRight className="w-4 h-4" />
@@ -183,7 +200,7 @@ export const LoginPage: React.FC = () => {
               onClick={() => loginAsDemoUser('user-parent-bennett')}
               className="flex items-center justify-center gap-2 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 transition-colors"
             >
-              <School className="w-4 h-4 text-indigo-600" />
+              <School className="w-4 h-4 text-[#0040A0]" />
               <span>The Seaside Schools SSO</span>
             </button>
             <button
@@ -202,7 +219,7 @@ export const LoginPage: React.FC = () => {
           <div className="flex items-center justify-between pb-2 border-b border-slate-100">
             <div>
               <h2 className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
-                <KeyRound className="w-4 h-4 text-indigo-600" />
+                <KeyRound className="w-4 h-4 text-[#0040A0]" />
                 <span>Instant Demo Access</span>
               </h2>
               <p className="text-[11px] sm:text-xs text-slate-500">
@@ -227,7 +244,7 @@ export const LoginPage: React.FC = () => {
                     {account.icon}
                     <span>{account.label}</span>
                   </div>
-                  <span className="text-[10px] font-semibold text-indigo-600 group-hover:translate-x-0.5 transition-transform">
+                  <span className="text-[10px] font-semibold text-[#0040A0] group-hover:translate-x-0.5 transition-transform">
                     Sign In →
                   </span>
                 </div>
@@ -302,7 +319,7 @@ export const LoginPage: React.FC = () => {
                     value={forgotEmail}
                     onChange={(e) => setForgotEmail(e.target.value)}
                     placeholder="name@seasideschools.edu"
-                    className="w-full p-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full p-2.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#0040A0]"
                   />
                 </div>
 

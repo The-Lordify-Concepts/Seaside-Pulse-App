@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { usePulse } from '../context/PulseContext';
 import { CheckCircle2, XCircle, Clock, AlertCircle, ShieldAlert, Lock, UserCheck } from 'lucide-react';
+import { EmptyStateCard } from './ui/Visuals';
 import { CorrectionRequest } from '../types/pulse';
 import { canResolveCorrection } from '../utils/permissions';
 
@@ -107,10 +108,16 @@ export const CorrectionsQueue: React.FC = () => {
 
         <div className="divide-y divide-slate-100">
           {pendingList.length === 0 ? (
-            <div className="py-12 text-center text-sm text-slate-500">
-              {role === 'parent'
-                ? 'You have no pending inquiries. All family records are verified!'
-                : 'No pending correction requests. All class records are in order!'}
+            <div className="py-8 px-4">
+              <EmptyStateCard
+                variant="corrections"
+                title={role === 'parent' ? 'All clear — no pending inquiries' : 'Inbox zero — records look great'}
+                description={
+                  role === 'parent'
+                    ? 'Your family point records are verified. If something looks off later, you can request a correction from the activity list.'
+                    : 'There are no open correction requests for your classes right now. New parent inquiries will appear here.'
+                }
+              />
             </div>
           ) : (
             pendingList.map((req) => {

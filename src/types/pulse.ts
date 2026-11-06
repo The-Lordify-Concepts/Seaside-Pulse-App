@@ -66,6 +66,8 @@ export interface UserAccount {
   isActive?: boolean;
   avatarInitials?: string;
   title?: string;
+  /** Optional profile photo URL; UI shows placeholder when missing */
+  photoUrl?: string | null;
 }
 
 // ------------------------------------------------------------
@@ -79,6 +81,8 @@ export interface Student {
   className: string;
   yearGroup: string;
   isActive?: boolean;
+  /** Optional profile photo URL; UI shows placeholder when missing */
+  photoUrl?: string | null;
 }
 
 export interface Parent {
@@ -94,6 +98,9 @@ export interface Teacher {
   name: string;
   assignedClasses: string[];
   email?: string;
+  /** Optional profile photo URL; UI shows placeholder when missing */
+  photoUrl?: string | null;
+  subject?: string;
 }
 
 export interface SchoolClass {

@@ -24,7 +24,7 @@ import {
   Compass,
   Check
 } from 'lucide-react';
-import { RankMedal, BadgeWall, ConfettiDots, AchievementBadge } from './ui/Visuals';
+import { RankMedal, BadgeWall, ConfettiDots, AchievementBadge, PersonAvatar } from './ui/Visuals';
 
 interface StudentDashboardProps {
   onNavigateToPoints: () => void;
@@ -136,10 +136,15 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-start gap-4 sm:gap-5">
-            {/* Student Avatar Initials */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/10 backdrop-blur-xs border-2 border-white/20 text-white flex items-center justify-center font-bold text-2xl sm:text-3xl shrink-0 shadow-md">
-              {studentName.split(' ').map((n) => n[0]).join('')}
-            </div>
+            {/* Student photo or placeholder */}
+            <PersonAvatar
+              name={studentName}
+              photoUrl={currentUser?.photoUrl}
+              size="xl"
+              role="student"
+              rounded="2xl"
+              className="border-2 border-white/30"
+            />
 
             <div className="space-y-1.5">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/15 text-blue-50 border border-white/15">

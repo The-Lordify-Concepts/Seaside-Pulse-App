@@ -15,7 +15,7 @@ import {
   ArrowUpRight,
   ChevronDown
 } from 'lucide-react';
-import { RankMedal, AchievementBadge, BadgeWall } from './ui/Visuals';
+import { RankMedal, AchievementBadge, BadgeWall, PersonAvatar } from './ui/Visuals';
 import { PointActivity } from '../types/pulse';
 
 export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> = ({ onNavigateToCommunications }) => {
@@ -204,9 +204,7 @@ export const ParentPortal: React.FC<{ onNavigateToCommunications: () => void }> 
               <div>
                 <div className="flex items-center justify-between mb-3 sm:mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#0040A0] to-[#003080] text-white font-bold flex items-center justify-center text-sm border border-blue-800 shadow-sm shrink-0">
-                      {child.name.charAt(0)}
-                    </div>
+                    <PersonAvatar name={child.name} size="sm" role="student" rounded="xl" />
                     <div>
                       <h3 className="text-sm sm:text-base font-bold text-slate-900">{child.name}</h3>
                       <div className="text-xs text-slate-500">

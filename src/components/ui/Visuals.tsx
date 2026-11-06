@@ -528,3 +528,88 @@ export const HeroIcons = {
   Crown,
   Sparkles
 };
+
+
+/* ------------------------------------------------------------------ */
+/*  Person avatar with photo or branded placeholder                    */
+/* ------------------------------------------------------------------ */
+
+const AVATAR_PALETTE = [
+  'from-[#0040A0] to-[#003080]',
+  'from-sky-500 to-blue-700',
+  'from-emerald-500 to-teal-700',
+  'from-violet-500 to-indigo-700',
+  'from-amber-500 to-orange-600',
+  'from-rose-500 to-[#D02010]',
+  'from-cyan-500 to-blue-600',
+  'from-fuchsia-500 to-purple-700'
+];
+
+function initialsFromName(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '?';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function colorIndex(name: string): number {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h + name.charCodeAt(i) * (i + 1)) % 997;
+  return h % AVATAR_PALETTE.length;
+}
+
+export type PersonAvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+const SIZE_CLASS: Record<PersonAvatarSize, string> = {
+  xs: 'w-7 h-7 text-[10px]',
+  sm: 'w-9 h-9 text-xs',
+  md: 'w-11 h-11 text-sm',
+  lg: 'w-16 h-16 text-xl',
+  xl: 'w-20 h-20 text-2xl'
+};
+
+export const PersonAvatar: React.FC<{
+  name: string;
+  photoUrl?: string | null;
+  size?: PersonAvatarSize;
+  role?: 'student' | 'teacher' | 'parent' | 'admin' | 'staff';
+  className?: string;
+  rounded?: 'full' | 'xl' | '2xl';
+}> = ({ name, photoUrl, size = 'md', role, className = '', rounded = 'full' }) => {
+  const initials = initialsFromName(name);
+  const gradient = AVATAR_PALETTE[colorIndex(name)];
+  const round =
+    rounded === 'full' ? 'rounded-full' : rounded === '2xl' ? 'rounded-2xl' : 'rounded-xl';
+  const dim = SIZE_CLASS[size];
+
+  if (photoUrl) {
+    return (
+      <img
+        src={photoUrl}
+        alt={name}
+        title={name}
+        className={`${dim} ${round} object-cover shrink-0 ring-2 ring-white shadow-sm ${className}`}
+      />
+    );
+  }
+
+  // Placeholder: gradient + initials + subtle role cue
+  const roleRing =
+    role === 'teacher' || role === 'staff'
+      ? 'ring-2 ring-amber-300/80'
+      : role === 'student'
+        ? 'ring-2 ring-sky-200/90'
+        : role === 'admin'
+          ? 'ring-2 ring-[#0040A0]/40'
+          : 'ring-2 ring-white/80';
+
+  return (
+    <div
+      title={name}
+      className={`${dim} ${round} bg-gradient-to-br ${gradient} text-white font-bold flex items-center justify-center shrink-0 shadow-md ${roleRing} ${className}`}
+      aria-label={name}
+    >
+      <span className="drop-shadow-sm select-none">{initials}</span>
+    </div>
+  );
+};

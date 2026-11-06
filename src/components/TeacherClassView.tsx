@@ -17,6 +17,7 @@ import {
   ChevronRight,
   TrendingUp
 } from 'lucide-react';
+import { PersonAvatar, EmptyStateCard } from './ui/Visuals';
 import { CategoryId } from '../types/pulse';
 
 interface TeacherClassViewProps {
@@ -236,8 +237,12 @@ export const TeacherClassView: React.FC<TeacherClassViewProps> = ({
         {/* Student Roster Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
           {filteredStudents.length === 0 ? (
-            <div className="col-span-full py-12 text-center text-xs text-slate-500">
-              No students found matching current filters.
+            <div className="col-span-full py-6">
+              <EmptyStateCard
+                variant="generic"
+                title="No students in this view"
+                description="Try another class tab or clear the search. When students are linked to your classes, they will appear here with photo placeholders."
+              />
             </div>
           ) : (
             filteredStudents.map((student) => (
@@ -247,15 +252,18 @@ export const TeacherClassView: React.FC<TeacherClassViewProps> = ({
               >
                 <div>
                   <div className="flex items-start justify-between gap-2">
-                    <div>
+                    <div className="flex items-start gap-2.5 min-w-0">
+                      <PersonAvatar name={student.name} size="md" role="student" rounded="xl" />
+                      <div className="min-w-0">
                       <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
                         {student.className} · {student.yearGroup}
                       </span>
-                      <h3 className="text-sm font-bold text-slate-900 mt-1">
+                      <h3 className="text-sm font-bold text-slate-900 mt-1 truncate">
                         {student.name}
                       </h3>
-                      <div className="text-xs text-slate-500">
+                      <div className="text-xs text-slate-500 truncate">
                         {student.family.displayTitle}
+                      </div>
                       </div>
                     </div>
                     <div className="text-right">

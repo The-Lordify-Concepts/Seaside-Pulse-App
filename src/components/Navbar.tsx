@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import seasideLogo from '../assets/brand/seaside-logo.png';
 import { ChangePasswordModal } from './ChangePasswordModal';
+import { PersonAvatar } from './ui/Visuals';
 
 interface NavbarProps {
   currentTab: string;
@@ -266,9 +267,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab, onOpe
                 aria-expanded={userDropdownOpen}
                 aria-label="User account menu"
               >
-                <div className="w-7 h-7 rounded-lg bg-[#0040A0]/10 text-[#0040A0] flex items-center justify-center font-bold text-xs ring-1 ring-[#0040A0]/20">
-                  {currentUser?.name.charAt(0) || 'U'}
-                </div>
+                <PersonAvatar
+                  name={currentUser?.name || 'User'}
+                  photoUrl={currentUser?.photoUrl}
+                  size="xs"
+                  role={role === 'teacher' ? 'teacher' : role === 'student' ? 'student' : role === 'admin' ? 'admin' : 'parent'}
+                  rounded="xl"
+                />
                 <div className="hidden sm:block text-xs leading-tight">
                   <div className="font-semibold text-slate-900 truncate max-w-[120px]">
                     {currentUser?.name}
